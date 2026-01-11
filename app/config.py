@@ -1,0 +1,2 @@
+APP_TITLE = "Task Planner"
+WINDOW_SIZE = "600x400"
