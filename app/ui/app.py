@@ -4,6 +4,7 @@ from tkinter import messagebox
 from app.config import APP_TITLE, WINDOW_SIZE
 from app.models.task import Task
 from app.services.planner import allocate_evenly
+from app.ui.task_input_view import TaskInputView
 
 
 class TaskPlannerApp:
@@ -15,26 +16,14 @@ class TaskPlannerApp:
         self._build_ui()
 
     def _build_ui(self):
-        # Title
         title = tk.Label(self.root, text="Task Planner v0.1", font=("Arial", 16))
         title.pack(pady=10)
 
-        # ---- Task Name ----
-        tk.Label(self.root, text="Task name").pack()
-        self.name_entry = tk.Entry(self.root)
-        self.name_entry.pack()
+        # ---- Task input view ----
+        self.task_input = TaskInputView(self.root)
+        self.task_input.pack(padx=20, pady=10, fill="x")
 
-        # ---- Total Hours ----
-        tk.Label(self.root, text="Total hours").pack()
-        self.total_hours_entry = tk.Entry(self.root)
-        self.total_hours_entry.pack()
-
-        # ---- Daily Hours ----
-        tk.Label(self.root, text="Daily hours").pack()
-        self.daily_hours_entry = tk.Entry(self.root)
-        self.daily_hours_entry.pack()
-
-        # ---- Button ----
+        # ---- Action button ----
         self.button = tk.Button(
             self.root,
             text="Calculate days needed",
@@ -48,9 +37,11 @@ class TaskPlannerApp:
 
     def _on_calculate(self):
         try:
-            name = self.name_entry.get().strip()
-            total_hours = float(self.total_hours_entry.get())
-            daily_hours = float(self.daily_hours_entry.get())
+            data = self.task_input.get_input()
+
+            name = data["name"].strip()
+            total_hours = float(data["total_hours"])
+            daily_hours = float(data["daily_hours"])
 
             if not name:
                 raise ValueError("Task name cannot be empty")
