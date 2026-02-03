@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 from app.config import APP_TITLE, WINDOW_SIZE
 from app.models.task import Task
-from app.services.planner import allocate_evenly
+from app.services.planner import generate_daily_plan
 
 from app.ui.task_input_view import TaskInputView
 from app.ui.result_view import ResultView
@@ -64,10 +64,11 @@ class TaskPlannerApp:
             self.tasks.append((task, daily_hours))
             self.task_list.add_task(task)
 
-            days = allocate_evenly(task, daily_hours)
+            plan = generate_daily_plan(task, daily_hours)
+	     days = len(plan)
             self.result_view.show_result(
-                f"Task '{task.name}' needs {days} days"
-            )
+    			f"Task '{task.name}' needs {days} days"
+	      )
 
             self.task_input.clear()
 
