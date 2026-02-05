@@ -1,4 +1,5 @@
 import tkinter as tk
+from app.models.daily_plan import DailyPlan
 
 
 class ResultView(tk.Frame):
@@ -7,16 +8,20 @@ class ResultView(tk.Frame):
         self._build_ui()
 
     def _build_ui(self):
-        self.label = tk.Label(
-            self,
-            text="",
-            font=("Arial", 12),
-            fg="blue"
-        )
-        self.label.pack(anchor="w")
+        title = tk.Label(self, text="Daily Plan", font=("Arial", 12, "bold"))
+        title.pack(anchor="w", pady=(0, 5))
 
-    def show_result(self, text: str):
-        self.label.config(text=text)
+        self.listbox = tk.Listbox(self, height=8)
+        self.listbox.pack(fill="both", expand=True)
+
+    def show_plan(self, plan: list[DailyPlan]):
+        self.clear()
+
+        for day in plan:
+            self.listbox.insert(
+                tk.END,
+                f"Day {day.day_index}: {day.hours:.1f} h"
+            )
 
     def clear(self):
-        self.label.config(text="")
+        self.listbox.delete(0, tk.END)
