@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 
+from datetime import date
+
 from app.config import APP_TITLE, WINDOW_SIZE
 from app.models.task import Task
 from app.services.planner import generate_daily_plan
@@ -63,8 +65,9 @@ class TaskPlannerApp:
 
             self.tasks.append((task, daily_hours))
             self.task_list.add_task(task)
-
-            plan = generate_daily_plan(task, daily_hours)
+            start_date = date.fromisoformat(data["start_date"])
+            
+            plan = generate_daily_plan(task, daily_hours, start_date)
             self.result_view.show_plan(plan)
 
             self.task_input.clear()
