@@ -20,7 +20,7 @@ class ResultView(tk.Frame):
         for day in plan:
             self.listbox.insert(
                 tk.END,
-                f"Day {day.day_index}: {day.hours:.1f} h"
+                f"{day.date.isoformat()}  |  {day.hours:.1f} h"
             )
 
     def clear(self):
