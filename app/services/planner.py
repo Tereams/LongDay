@@ -7,18 +7,21 @@ def generate_daily_plan(
     task: Task,
     daily_hours,
     start_date: date,
-    working_days: set[int] | None = None
+    working_days: set[int] | None = None,
+    skip_dates: set[date] | None = None
 ) -> list[DailyPlan]:
     """
-    Generate a work plan.
-    
-    daily_hours:
-        - float: same hours every working day
-        - dict[int, float]: hours per weekday (0=Mon ... 6=Sun)
+    Generate a work plan with:
+    - variable daily hours
+    - working days rule
+    - blackout dates (skip_dates)
     """
 
     if working_days is None:
         working_days = {0, 1, 2, 3, 4}
+
+    if skip_dates is None:
+        skip_dates = set()
 
     if isinstance(daily_hours, (int, float)):
         daily_hours_map = {d: float(daily_hours) for d in working_days}
@@ -35,7 +38,10 @@ def generate_daily_plan(
     while remaining > 0:
         weekday = current_date.weekday()
 
-        if weekday in working_days:
+        is_working_day = weekday in working_days
+        is_skipped = current_date in skip_dates
+
+        if is_working_day and not is_skipped:
             hours_today = daily_hours_map.get(weekday, 0)
 
             if hours_today > 0:

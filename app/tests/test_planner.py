@@ -55,3 +55,19 @@ def test_variable_daily_hours():
     assert plan[2].hours == 1
     assert plan[3].hours == 1
 
+def test_skip_specific_dates():
+    task = Task(name="Skip Test", total_hours=4)
+
+    start = date(2026, 2, 2)  # Monday
+    skip = {date(2026, 2, 3)}  # Skip Tuesday
+
+    plan = generate_daily_plan(
+        task,
+        daily_hours=2,
+        start_date=start,
+        skip_dates=skip
+    )
+
+    assert plan[0].date == date(2026, 2, 2)
+    assert plan[1].date == date(2026, 2, 4)
+
