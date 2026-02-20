@@ -8,7 +8,8 @@ def generate_daily_plan(
     daily_hours,
     start_date: date,
     working_days: set[int] | None = None,
-    skip_dates: set[date] | None = None
+    skip_dates: set[date] | None = None,
+    deadline: date | None = None
 ) -> list[DailyPlan]:
     """
     Generate a work plan with:
@@ -36,8 +37,11 @@ def generate_daily_plan(
     plan: list[DailyPlan] = []
 
     while remaining > 0:
-        weekday = current_date.weekday()
 
+        if deadline is not None and current_date > deadline:
+            raise ValueError("Task cannot be completed before deadline.")
+
+        weekday = current_date.weekday()
         is_working_day = weekday in working_days
         is_skipped = current_date in skip_dates
 
