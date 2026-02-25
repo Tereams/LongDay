@@ -1,5 +1,7 @@
 import tkinter as tk
 from app.models.daily_plan import DailyPlan
+from collections import defaultdict
+from app.models.allocation import AllocationBlock
 
 
 class ResultView(tk.Frame):
@@ -25,3 +27,22 @@ class ResultView(tk.Frame):
 
     def clear(self):
         self.listbox.delete(0, tk.END)
+
+    def show_allocations(self, allocations: list[AllocationBlock]):
+        self.clear()
+
+        grouped = defaultdict(list)
+
+        for a in allocations:
+            grouped[a.date].append(a)
+
+        for d in sorted(grouped):
+            total = sum(x.hours for x in grouped[d])
+            self.listbox.insert(tk.END, f"{d.isoformat()}  |  total {total:.1f}h")
+
+            for x in grouped[d]:
+                self.listbox.insert(
+                    tk.END,
+                    f"   {x.task_name}: {x.hours:.1f}h"
+                )
+        
