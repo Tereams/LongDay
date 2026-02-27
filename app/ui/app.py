@@ -6,6 +6,7 @@ from datetime import date
 from app.config import APP_TITLE, WINDOW_SIZE
 from app.models.task import Task
 from app.services.planner import generate_daily_plan
+from app.services.scheduler import schedule_tasks
 
 from app.ui.task_input_view import TaskInputView
 from app.ui.result_view import ResultView
@@ -106,6 +107,24 @@ class TaskPlannerApp:
             self.result_view.pack(fill="both", expand=True)
             self.toggle_button.config(text="Switch to Calendar View")
             self.view_mode = "list"
+
+    def _run_multi_schedule(self):
+
+        if not self.tasks:
+            return
+
+        task_objects = [t for t, _ in self.tasks]
+
+        start_date = date.today()
+
+        allocations = schedule_tasks(
+            task_objects,
+            daily_hours=5,
+            start_date=start_date
+        )
+
+        self.result_view.show_allocations(allocations)
+        self.calendar_view.show_allocations(allocations)
             
     def run(self):
         self.root.mainloop()
