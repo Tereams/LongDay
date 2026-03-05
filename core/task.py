@@ -1,10 +1,15 @@
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 from typing import Optional
-from datetime import date
 
 @dataclass
 class Task:
-    name: str
-    total_hours: float
-    deadline: Optional[date] = None
-    priority: int = 0  
+    """
+    Task: user-defined task
+    """
+    id: int
+    title: str
+    window_start: datetime
+    window_end: datetime
+    estimate_hours: float
+    priority: Optional[int] = None
