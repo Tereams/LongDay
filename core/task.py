@@ -13,3 +13,10 @@ class Task:
     window_end: datetime
     estimate_hours: float
     priority: Optional[int] = None
+
+    def __post_init_(self):
+        if self.window_start >= self.window_end:
+            raise ValueError("window_start must be earlier than window_end")
+
+        if self.estimate_hours <= 0:
+            raise ValueError("estimate_hours must be positive")
