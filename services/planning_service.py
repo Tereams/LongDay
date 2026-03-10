@@ -1,14 +1,15 @@
 from core.task import Task
 from core.exception import Exception
 from core.schedule import Schedule
-from datetime import datetime, time, timedelta
+from datetime import datetime, time, timedelta, date
+from timeblock import TimeBlock
 
 class PlanningService:
 
     def __init__(self):
         self.planning_start = time(9, 0)
         self.planning_end = time(18, 0)
-        self.block_size = timedelta(minutes=30)
+        self.block_size = timedelta(minutes=5)
         self.window_past_days = 10
         self.window_future_days = 30
 
@@ -18,15 +19,15 @@ class PlanningService:
         exceptions: list[Exception]
     ) -> Schedule:
         # this should be a global planning
+        # datetime: full timestamp (date + time)
+        today = date.today()
 
-        now = datetime.now()
+        date_start = today - timedelta(days=self.window_past_days)
+        date_end = today + timedelta(days=self.window_future_days)
 
-        start = now - timedelta(days=self.window_past_days)
-        end = now + timedelta(days=self.window_future_days)
-
-        planning_tasks = self._filter_tasks(tasks, start, end)
-        planning_exceptions = self._filter_exceptions(exceptions, start, end)
-        blocks = self._generate_blocks(start, end)
+        planning_tasks = self._filter_tasks(tasks, date_start, date_end)
+        planning_exceptions = self._filter_exceptions(exceptions, date_start, date_end)
+        blocks = self._generate_blocks(date_start, date_end)
         self._apply_exceptions(blocks, planning_exceptions)
         self._assign_tasks(blocks, planning_tasks)
 
@@ -41,24 +42,42 @@ class PlanningService:
     ) -> Schedule:
         pass
 
-    def _filter_tasks(self, tasks, start, end):
+    def _filter_tasks(self, tasks, date_start, date_end):
         result = []
         for task in tasks:
-            if task.window_end >= start and task.window_start <= end:
+            task_start = task.window_start.date()
+            task_end = task.window_end.date()
+            if task_end >= date_start and task_start <= date_end:
                 result.append(task)
-
         return result
     
-    def _filter_exception(self, exceptions, start, end):
+    def _filter_exceptions(self, exceptions, date_start, date_end):
         result = []
         for exc in exceptions:
-            if exc.end >= start and exc.start <= end:
+            exc_start = exc.start.date()
+            exc_end = exc.end.date()
+            if exc_end >= date_start and exc_start <= date_end:
                 result.append(exc)
-
         return result
 
-    def _generate_blocks(self, start, end):
-        pass
+    def _generate_blocks(self, date_start, date_end):
+        blocks = []
+        date_ptr = date_start
+
+        while date_ptr <= date_end:
+
+            day_start = datetime.combine(date_ptr, self.planning_start)
+            day_end = datetime.combine(date_ptr, self.planning_end)
+
+            block_start = day_start
+            while block_start < day_end:
+                block_end = block_start + self.block_size
+                blocks.append(TimeBlock(start=block_start, end=block_end))
+                block_start = block_end
+
+            date_ptr += timedelta(days=1)
+
+        return blocks
 
     def _apply_exceptions(self, blocks, exceptions):
         pass
