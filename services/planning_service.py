@@ -90,21 +90,19 @@ class PlanningService:
                         block.task_id = exc.task_id
 
     def _assign_tasks(self, blocks, tasks):
-        # 1 统计 LOCKED block
+        # count LOCKED block
         locked_count = {}
 
         for block in blocks:
             if block.status == "LOCKED" and block.task_id is not None:
                 locked_count[block.task_id] = locked_count.get(block.task_id, 0) + 1
 
-        # 2 任务排序（简单按priority）
+        # sort tasks(for now just be simple)
         tasks = sorted(tasks, key=lambda t: t.priority or 0)
 
         for task in tasks:
 
-            needed_blocks = int(
-                task.estimate_hours * 3600 / self.block_size.total_seconds()
-            )
+            needed_blocks = task.required_blocks(self.block_size)
 
             already_locked = locked_count.get(task.id, 0)
             remaining = max(0, needed_blocks - already_locked)
@@ -112,7 +110,7 @@ class PlanningService:
             if remaining == 0:
                 continue
 
-            # 3 找候选block
+            # 3 find block
             for block in blocks:
 
                 if remaining == 0:
@@ -121,13 +119,7 @@ class PlanningService:
                 if block.status != "FREE":
                     continue
 
-                if block.start < task.window_start:
-                    continue
-
-                if block.end > task.window_end:
-                    continue
-
-                block.status = "ASSIGNED"
-                block.task_id = task.id
-
-                remaining -= 1
+                if task.accepts(block.start, block.end):
+                    block.status = "ASSIGNED"
+                    block.task_id = task.id
+                    remaining -= 1
