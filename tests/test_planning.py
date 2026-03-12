@@ -6,6 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from services.planning_service import PlanningService
 from core.task import Task
 from core.exception import Exception
+from core.timeblock import BlockStatus
 from datetime import datetime
 
 tasks = [
@@ -24,6 +25,6 @@ exceptions = []
 service = PlanningService()
 schedule = service.generate_schedule(tasks, exceptions)
 
-for block in schedule.blocks:
-    if block.status != "FREE":
+for block in schedule.assignments:
+    if block.status != BlockStatus.FREE:
         print(block)

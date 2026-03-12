@@ -1,7 +1,7 @@
 from core.task import Task
 from core.exception import Exception
 from core.schedule import Schedule
-from core.timeblock import TimeBlock
+from core.timeblock import BlockStatus, TimeBlock
 from datetime import datetime, time, timedelta, date
 
 class PlanningService:
@@ -84,9 +84,9 @@ class PlanningService:
             for block in blocks:
                 if exc.overlaps(block.start, block.end):
                     if exc.type.name == 'BLOCK':
-                        block.status = 'BLOCKED'
+                        block.status = BlockStatus.BLOCKED
                     elif exc.type.name == 'LOCK':
-                        block.status = 'LOCKED'
+                        block.status = BlockStatus.LOCKED
                         block.task_id = exc.task_id
 
     def _assign_tasks(self, blocks, tasks):
@@ -94,7 +94,7 @@ class PlanningService:
         locked_count = {}
 
         for block in blocks:
-            if block.status == "LOCKED" and block.task_id is not None:
+            if block.status == BlockStatus.LOCKED and block.task_id is not None:
                 locked_count[block.task_id] = locked_count.get(block.task_id, 0) + 1
 
         # sort tasks(for now just be simple)
@@ -116,10 +116,10 @@ class PlanningService:
                 if remaining == 0:
                     break
 
-                if block.status != "FREE":
+                if block.status != BlockStatus.FREE:
                     continue
 
                 if task.accepts(block.start, block.end):
-                    block.status = "ASSIGNED"
+                    block.status = BlockStatus.ASSIGNED
                     block.task_id = task.id
                     remaining -= 1
