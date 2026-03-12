@@ -1,8 +1,8 @@
 from core.task import Task
 from core.exception import Exception
 from core.schedule import Schedule
+from core.timeblock import TimeBlock
 from datetime import datetime, time, timedelta, date
-from timeblock import TimeBlock
 
 class PlanningService:
 

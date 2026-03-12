@@ -1,5 +1,6 @@
 from core.schedule import Schedule
 
+# not needed
 class ScheduleService:
 
     def get_current_schedule(self) -> Schedule:
