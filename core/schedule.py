@@ -16,10 +16,9 @@ class Schedule:
     about when the schedule was generated.
     """
     tasks: List[Task]
-    exceptions: List[Constraint]
-
+    constraint: List[Constraint]
     assignments: List[TimeBlock] = field(default_factory=list)
-
+    generated_at: datetime | None = None
 
     def get_task_assignments(self, task_id: int) -> List[TimeBlock]:
         """Return all assignments for a specific task."""

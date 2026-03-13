@@ -16,7 +16,7 @@ class PlanningService:
     def generate_schedule(
         self,
         tasks: list[Task],
-        constraint: list[Constraint]
+        constraints: list[Constraint]
     ) -> Schedule:
         # this should be a global planning
         # datetime: full timestamp (date + time)
@@ -26,12 +26,12 @@ class PlanningService:
         date_end = today + timedelta(days=self.window_future_days)
 
         planning_tasks = self._filter_tasks(tasks, date_start, date_end)
-        planning_constraints = self._filter_constraint(constraint, date_start, date_end)
+        planning_constraints = self._filter_constraint(constraints, date_start, date_end)
         blocks = self._generate_blocks(date_start, date_end)
         self._apply_constraint(blocks, planning_constraints)
         self._assign_tasks(blocks, planning_tasks)
 
-        return Schedule(blocks)
+        return Schedule(tasks, constraints, blocks)
         # the merge of the block will be applied at export and at GUI
 
     def replan_from_existing(
