@@ -5,7 +5,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from services.planning_service import PlanningService
 from core.task import Task
-from core.exception import Exception
+from core.exception import Exception, ExceptionType
 from core.timeblock import BlockStatus
 from datetime import datetime
 
@@ -20,7 +20,14 @@ tasks = [
     )
 ]
 
-exceptions = []
+exceptions = [Exception(start=datetime(2026,3,12,10,0),
+                        end=datetime(2026,3,12,10,10),
+                        type=ExceptionType.BLOCK),
+            Exception(start=datetime(2026,3,12,14,0),
+                        end=datetime(2026,3,12,14,10),
+                        type=ExceptionType.LOCK,
+                        task_id=1),
+              ]
 
 service = PlanningService()
 schedule = service.generate_schedule(tasks, exceptions)
