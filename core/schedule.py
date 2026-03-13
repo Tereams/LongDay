@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List
 
+from core.task import Task
+from core.constraint import Constraint
 from core.timeblock import TimeBlock
 
 
@@ -13,6 +15,8 @@ class Schedule:
     A Schedule contains all task assignments and metadata
     about when the schedule was generated.
     """
+    tasks: List[Task]
+    exceptions: List[Constraint]
 
     assignments: List[TimeBlock] = field(default_factory=list)
 

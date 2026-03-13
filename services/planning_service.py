@@ -1,5 +1,5 @@
 from core.task import Task
-from core.exception import Exception
+from core.constraint import Constraint, ConstraintType
 from core.schedule import Schedule
 from core.timeblock import BlockStatus, TimeBlock
 from datetime import datetime, time, timedelta, date
@@ -16,7 +16,7 @@ class PlanningService:
     def generate_schedule(
         self,
         tasks: list[Task],
-        exceptions: list[Exception]
+        constraint: list[Constraint]
     ) -> Schedule:
         # this should be a global planning
         # datetime: full timestamp (date + time)
@@ -26,9 +26,9 @@ class PlanningService:
         date_end = today + timedelta(days=self.window_future_days)
 
         planning_tasks = self._filter_tasks(tasks, date_start, date_end)
-        planning_exceptions = self._filter_exceptions(exceptions, date_start, date_end)
+        planning_constraints = self._filter_constraint(constraint, date_start, date_end)
         blocks = self._generate_blocks(date_start, date_end)
-        self._apply_exceptions(blocks, planning_exceptions)
+        self._apply_constraint(blocks, planning_constraints)
         self._assign_tasks(blocks, planning_tasks)
 
         return Schedule(blocks)
@@ -38,7 +38,7 @@ class PlanningService:
         self,
         existing_schedule: Schedule,
         tasks: list[Task],
-        exceptions: list[Exception]
+        constraints: list[Constraint]
     ) -> Schedule:
         pass
 
@@ -51,9 +51,9 @@ class PlanningService:
                 result.append(task)
         return result
     
-    def _filter_exceptions(self, exceptions, date_start, date_end):
+    def _filter_constraints(self, constraints, date_start, date_end):
         result = []
-        for exc in exceptions:
+        for exc in constraints:
             exc_start = exc.start.date()
             exc_end = exc.end.date()
             if exc_end >= date_start and exc_start <= date_end:
@@ -79,13 +79,13 @@ class PlanningService:
 
         return blocks
 
-    def _apply_exceptions(self, blocks, exceptions):
-        for exc in exceptions:
+    def _apply_constraints(self, blocks, constraints):
+        for exc in constraints:
             for block in blocks:
                 if exc.overlaps(block.start, block.end):
-                    if exc.type.name == 'BLOCK':
+                    if exc.type == ConstraintType.BLOCK:
                         block.status = BlockStatus.BLOCKED
-                    elif exc.type.name == 'LOCK':
+                    elif exc.type == ConstraintType.LOCK:
                         block.status = BlockStatus.LOCKED
                         block.task_id = exc.task_id
 

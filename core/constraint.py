@@ -4,13 +4,13 @@ from enum import Enum
 from typing import Optional
 
 
-class ExceptionType(Enum):
+class ConstraintType(Enum):
     BLOCK = "BLOCK"
     LOCK = "LOCK"
 
 
 @dataclass
-class Exception:
+class Constraint:
     """
     Represents a user intervention on the timeline.
 
@@ -20,7 +20,7 @@ class Exception:
 
     start: datetime
     end: datetime
-    type: ExceptionType
+    type: ConstraintType
     task_id: Optional[int] = None
 
     def duration_minutes(self) -> int:
@@ -40,5 +40,5 @@ class Exception:
         if self.start >= self.end:
             raise ValueError("start must be earlier than end")
 
-        if self.type == ExceptionType.LOCK and self.task_id is None:
-            raise ValueError("LOCK exception must specify task_id")
+        if self.type == ConstraintType.LOCK and self.task_id is None:
+            raise ValueError("LOCK Constraint must specify task_id")
