@@ -12,17 +12,31 @@ class MainWindow:
         self.root.title("Scheduler")
         self.root.geometry("900x500")
 
+        # layout ratio
+        self.root.columnconfigure(0, weight=3)
+        self.root.columnconfigure(1, weight=1)
+
+        self.root.rowconfigure(0, weight=1)
+
         self.controller = MockController()
 
         self.build_layout()
 
     def build_layout(self):
 
-        left = tk.Frame(self.root)
-        left.pack(side="left", fill="both", expand=True, padx=10, pady=10)
+        # 左侧组件
+        left = tk.Frame(self.root, bg="lightblue")
+        left.grid(row=0, column=0, sticky="nsew")
 
-        right = tk.Frame(self.root, width=250)
-        right.pack(side="right", fill="y")
+        # 右侧组件
+        right = tk.Frame(self.root, bg="lightgreen")
+        right.grid(row=0, column=1, sticky="nsew")
+
+        left.rowconfigure(0, weight=1)
+        left.columnconfigure(0, weight=1)
+
+        right.rowconfigure(0, weight=1)
+        right.columnconfigure(0, weight=1)
 
         self.calendar = CalendarView(
             left,
@@ -30,10 +44,10 @@ class MainWindow:
             3,
             self.on_day_selected
         )
-        self.calendar.pack()
+        self.calendar.grid(row=0, column=0, sticky="nsew")
 
         self.detail = DayDetailView(right)
-        self.detail.pack(fill="both", expand=True)
+        self.detail.grid(row=0, column=0, sticky="nsew")
 
         workload = self.controller.get_month_workload(2026, 3)
         self.calendar.set_workload(workload)
