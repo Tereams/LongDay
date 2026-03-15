@@ -1,8 +1,5 @@
-from app.ui.app import TaskPlannerApp
-
-def main():
-    app = TaskPlannerApp()
-    app.run()
+from gui.main_window import MainWindow
 
 if __name__ == "__main__":
-    main()
+    app = MainWindow()
+    app.run()
