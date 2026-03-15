@@ -20,3 +20,24 @@ class MockController:
             ("13:00", "15:00", "Task B"),
             ("16:00", "17:00", "Task C"),
         ]
+    
+    def new_schedule(self):
+        print("New schedule")
+
+    def open_schedule(self):
+        print("Open")
+
+    def save_schedule(self):
+        print("Save")
+
+    def show_month_view(self):
+        print("Month view")
+
+    def show_week_view(self):
+        print("Week view")
+
+    def show_day_view(self):
+        print("Day view")
+
+    def show_about(self):
+        print("About")

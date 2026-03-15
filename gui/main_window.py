@@ -1,4 +1,5 @@
 import tkinter as tk
+from gui.menu_bar import MenuBar
 from gui.calendar_view import CalendarView
 from gui.day_detail_view import DayDetailView
 from controller.mock_controller import MockController
@@ -12,17 +13,20 @@ class MainWindow:
         self.root.title("Scheduler")
         self.root.geometry("900x500")
 
-        # layout ratio
-        self.root.columnconfigure(0, weight=3)
-        self.root.columnconfigure(1, weight=1)
-
-        self.root.rowconfigure(0, weight=1)
-
         self.controller = MockController()
 
         self.build_layout()
 
     def build_layout(self):
+
+        # menu bar 
+        self.menu_bar = MenuBar(self.root, self.controller)
+
+        # layout ratio
+        self.root.columnconfigure(0, weight=3)
+        self.root.columnconfigure(1, weight=1)
+
+        self.root.rowconfigure(0, weight=1)
 
         # 左侧组件
         left = tk.Frame(self.root, bg="lightblue")
