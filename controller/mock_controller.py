@@ -1,8 +1,44 @@
+from datetime import datetime
+from core.task import Task
+from core.constraint import Constraint, ConstraintType
+
 class MockController:
 
     def __init__(self):
         self.current_year = 2026
         self.current_month = 3
+        self.tasks = [
+            Task(
+                id=1,
+                title="Write report",
+                window_start=datetime(2026, 3, 10, 9),
+                window_end=datetime(2026, 3, 20, 18),
+                estimate_hours=6,
+                priority=1
+            ),
+            Task(
+                id=2,
+                title="Gym",
+                window_start=datetime(2026, 3, 1, 6),
+                window_end=datetime(2026, 3, 31, 22),
+                estimate_hours=1,
+                priority=2
+            ),
+        ]
+
+        self.constraints = [
+            Constraint(
+                start=datetime(2026, 3, 12, 10),
+                end=datetime(2026, 3, 12, 12),
+                type=ConstraintType.BLOCK
+            ),
+            Constraint(
+                start=datetime(2026, 3, 15, 14),
+                end=datetime(2026, 3, 15, 16),
+                type=ConstraintType.LOCK,
+                task_id=1
+            ),
+        ]
 
     def get_current_year_month(self):
         return self.current_year, self.current_month
@@ -43,6 +79,12 @@ class MockController:
             ("16:00", "17:00", "Task C"),
         ]
     
+    def get_all_tasks(self):
+        return self.tasks
+
+    def get_all_constraints(self):
+        return self.constraints
+
     def new_schedule(self):
         print("New schedule")
 
