@@ -33,3 +33,6 @@ longday
 
 Early development.
 Planning engine first, UI later.
+
+## UI
+For now, the UI looks like this:![Demo](img/ui_overview.png)
