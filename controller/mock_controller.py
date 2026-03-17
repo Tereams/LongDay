@@ -1,5 +1,27 @@
 class MockController:
 
+    def __init__(self):
+        self.current_year = 2026
+        self.current_month = 3
+
+    def get_current_year_month(self):
+        return self.current_year, self.current_month
+    
+    def next_month(self):
+        if self.current_month == 12:
+            self.current_year += 1
+            self.current_month = 1
+        else:
+            self.current_month += 1
+
+
+    def prev_month(self):
+        if self.current_month == 1:
+            self.current_year -= 1
+            self.current_month = 12
+        else:
+            self.current_month -= 1    
+    
     def get_month_workload(self, year, month):
 
         return {

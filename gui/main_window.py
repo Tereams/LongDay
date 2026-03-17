@@ -28,11 +28,11 @@ class MainWindow:
 
         self.root.rowconfigure(0, weight=1)
 
-        # 左侧组件
+        # left component
         left = tk.Frame(self.root, bg="lightblue")
         left.grid(row=0, column=0, sticky="nsew")
 
-        # 右侧组件
+        # right component
         right = tk.Frame(self.root, bg="lightgreen")
         right.grid(row=0, column=1, sticky="nsew")
 
@@ -42,11 +42,15 @@ class MainWindow:
         right.rowconfigure(0, weight=1)
         right.columnconfigure(0, weight=1)
 
+        year, month = self.controller.get_current_year_month()
+
         self.calendar = CalendarView(
             left,
-            2026,
-            3,
-            self.on_day_selected
+            year,
+            month,
+            self.on_day_selected,
+            self.on_prev_month,   
+            self.on_next_month
         )
         self.calendar.grid(row=0, column=0, sticky="nsew")
 
@@ -55,6 +59,25 @@ class MainWindow:
 
         workload = self.controller.get_month_workload(2026, 3)
         self.calendar.set_workload(workload)
+
+    def refresh_calendar(self):
+
+        year, month = self.controller.get_current_year_month()
+
+        # 1. refresh UI
+        self.calendar.refresh(year, month)
+
+        # 2. refresh data
+        workload = self.controller.get_month_workload(year, month)
+        self.calendar.set_workload(workload)
+
+    def on_prev_month(self):
+        self.controller.prev_month()
+        self.refresh_calendar()
+
+    def on_next_month(self):
+        self.controller.next_month()
+        self.refresh_calendar()
 
     def on_day_selected(self, day):
 
