@@ -45,7 +45,7 @@ class MainWindow:
         detail_frame.columnconfigure(0, weight=1)
 
         self.sidebar = Sidebar(sidebar_frame)
-        self.sidebar.pack(fill="both", expand=True)
+        self.sidebar.pack(fill="both", expand=True, padx=10, pady=10)
 
         year, month = self.controller.get_current_year_month()
         self.calendar = CalendarView(
