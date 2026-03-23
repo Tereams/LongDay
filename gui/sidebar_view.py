@@ -49,13 +49,17 @@ class Sidebar(tk.Frame):
             w.destroy()
 
         for task in tasks:
-            label = tk.Label(
-                self.task_section.body,
-                text=f"{task.title} ({task.estimate_hours}h)",
-                anchor="w"
+            btn = tk.Button(
+            self.task_section.body,
+            text=f"{task.title} ({task.estimate_hours}h)",
+            anchor="w",
+            relief="flat",
+            command=lambda t=task: self.on_task_clicked(t)
             )
-            label.pack(fill="x", padx=5, pady=2)
+            btn.pack(fill="x", padx=5, pady=2)
 
+    def set_task_click_handler(self, handler):
+        self.on_task_clicked = handler
 
     def show_constraints(self, constraints):
 
