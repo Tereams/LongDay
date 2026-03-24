@@ -2,6 +2,7 @@ import tkinter as tk
 from gui.calendar_view import CalendarView
 from gui.day_detail_view import DayDetailView
 from gui.sidebar_view import Sidebar
+from gui.task_detail_window import TaskDetailWindow
 
 
 class MainView(tk.Frame):
@@ -80,27 +81,11 @@ class MainView(tk.Frame):
 
 
     def open_task_detail(self, task):
-        win = tk.Toplevel(self)
-        win.title("Task Detail")
-        win.geometry("300x200")
-
-        tk.Label(win, text="Title:").pack(anchor="w")
-        title_entry = tk.Entry(win)
-        title_entry.insert(0, task.title)
-        title_entry.pack(fill="x")
-
-        tk.Label(win, text="Estimate Hours:").pack(anchor="w")
-        hours_entry = tk.Entry(win)
-        hours_entry.insert(0, str(task.estimate_hours))
-        hours_entry.pack(fill="x")
-
-        def save():
-            task.title = title_entry.get()
-            task.estimate_hours = float(hours_entry.get())
-            self.refresh_sidebar()
-            win.destroy()
-
-        tk.Button(win, text="Save", command=save).pack(pady=10)
+        TaskDetailWindow(
+            self,
+            task,
+            on_save=self.refresh_sidebar
+        )
     # =========================
     # Data logic
     # =========================
