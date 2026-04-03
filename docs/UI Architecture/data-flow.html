@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Flow - Longday Plan UI Docs</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f8fa; color: #1f2937; }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
+    .card { background: white; border: 1px solid #d1d5db; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    pre { background: #f3f4f6; padding: 16px; border-radius: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <a href="index.html">&larr; Back to Home</a>
+      <h1>Data Flow</h1>
+      <p>Document how data enters the UI, how views are updated, and how user actions travel back into the system.</p>
+    </div>
+
+    <div class="card">
+      <h2>1. Global Rule</h2>
+      <pre>Controller → MainWindow → View
+View Event → MainWindow → Controller → View Update</pre>
+    </div>
+
+    <div class="card">
+      <h2>2. Initial Load</h2>
+      <ol>
+        <li>[Describe what happens when the app starts]</li>
+        <li>[Describe which data is fetched first]</li>
+        <li>[Describe which view is rendered first]</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>3. Month Switch Flow</h2>
+      <pre>[User clicks prev/next]
+→ [CalendarView callback]
+→ [MainWindow handler]
+→ [Controller updates current month]
+→ [MainWindow refreshes calendar]</pre>
+    </div>
+
+    <div class="card">
+      <h2>4. Day Selection Flow</h2>
+      <pre>[User clicks day]
+→ [CalendarView emits selected date]
+→ [MainWindow handles selection]
+→ [Controller returns day schedule]
+→ [DayDetailView renders result]</pre>
+    </div>
+
+    <div class="card">
+      <h2>5. Open Questions</h2>
+      <ul>
+        <li>[Should Sidebar also react to day selection?]</li>
+        <li>[Should views store local cache?]</li>
+        <li>[Should refresh logic be unified?]</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

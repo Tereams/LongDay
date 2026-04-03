@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture - Longday Plan UI Docs</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f8fa; color: #1f2937; }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
+    .card { background: white; border: 1px solid #d1d5db; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    pre { background: #f3f4f6; padding: 16px; border-radius: 10px; overflow-x: auto; }
+    .muted { color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <a href="index.html">&larr; Back to Home</a>
+      <h1>Architecture</h1>
+      <p>Describe the overall UI structure and the top-level ownership of rendering, state, and coordination.</p>
+    </div>
+
+    <div class="card">
+      <h2>1. Purpose</h2>
+      <p>[Write what this UI is for, and what the current architecture is trying to support.]</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Top-Level Structure</h2>
+      <pre>MainWindow
+├── Sidebar
+├── CalendarView
+└── DayDetailView</pre>
+      <p class="muted">You can later replace this with a more detailed tree if needed.</p>
+    </div>
+
+    <div class="card">
+      <h2>3. Ownership</h2>
+      <ul>
+        <li><strong>MainWindow:</strong> [layout / coordination / event routing / UI refresh]</li>
+        <li><strong>Controller:</strong> [data source / app state]</li>
+        <li><strong>Views:</strong> [render only / local widget management]</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>4. Design Principle</h2>
+      <ul>
+        <li>[Example: Views should not fetch data directly.]</li>
+        <li>[Example: MainWindow coordinates interactions between views.]</li>
+        <li>[Example: Controller remains the source of truth.]</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. Current Gaps</h2>
+      <ul>
+        <li>[Where the architecture feels unclear today]</li>
+        <li>[Where responsibilities overlap]</li>
+        <li>[Where naming or flow is inconsistent]</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

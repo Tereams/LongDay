@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naming Convention - Longday Plan UI Docs</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f8fa; color: #1f2937; }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
+    .card { background: white; border: 1px solid #d1d5db; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #d1d5db; padding: 10px; text-align: left; }
+    th { background: #f3f4f6; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <a href="index.html">&larr; Back to Home</a>
+      <h1>Naming Convention</h1>
+      <p>Define a stable naming system so methods and classes communicate intent clearly.</p>
+    </div>
+
+    <div class="card">
+      <h2>1. Method Prefix Rules</h2>
+      <table>
+        <tr>
+          <th>Prefix</th>
+          <th>Meaning</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>build_*</td>
+          <td>Create static widget structure</td>
+          <td>build_header()</td>
+        </tr>
+        <tr>
+          <td>render_*</td>
+          <td>Render initial content</td>
+          <td>render_calendar()</td>
+        </tr>
+        <tr>
+          <td>update_*</td>
+          <td>Update part of an existing view</td>
+          <td>update_workload()</td>
+        </tr>
+        <tr>
+          <td>refresh_*</td>
+          <td>Rebuild or reload an entire section</td>
+          <td>refresh_calendar()</td>
+        </tr>
+        <tr>
+          <td>on_*</td>
+          <td>Event handler</td>
+          <td>on_day_selected()</td>
+        </tr>
+        <tr>
+          <td>get_*</td>
+          <td>Read data only</td>
+          <td>get_current_year_month()</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>2. Class Naming</h2>
+      <ul>
+        <li><strong>*View</strong> for UI rendering classes</li>
+        <li><strong>*Controller</strong> for coordination/data access classes</li>
+        <li><strong>*Model</strong> for domain objects if introduced later</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Open Cleanup Tasks</h2>
+      <ul>
+        <li>[List inconsistent names here]</li>
+        <li>[List names that should be renamed]</li>
+        <li>[List ambiguous methods here]</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

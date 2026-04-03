@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Longday Plan UI Docs</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --accent: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    h1, h2 { margin-top: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 20px; }
+    .muted { color: var(--muted); }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .nav-item {
+      display: block;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f9fafb;
+    }
+    code {
+      background: #eef2ff;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Longday Plan UI Docs</h1>
+      <p>
+        Internal documentation for the current desktop UI structure, component boundaries,
+        data flow, naming rules, and future refactor direction.
+      </p>
+      <p class="muted">
+        Suggested usage: start from this page, then jump into each topic page as needed.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Documentation Map</h2>
+      <div class="nav-grid">
+        <a class="nav-item" href="architecture.html"><strong>Architecture</strong><br />Overall UI structure and ownership</a>
+        <a class="nav-item" href="components.html"><strong>Components</strong><br />Responsibilities and boundaries of each view</a>
+        <a class="nav-item" href="data-flow.html"><strong>Data Flow</strong><br />How data and events move through the UI</a>
+        <a class="nav-item" href="naming.html"><strong>Naming Convention</strong><br />Rules for methods, classes, and variables</a>
+        <a class="nav-item" href="refactor-plan.html"><strong>Refactor Plan</strong><br />Known problems and next steps</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Current Scope</h2>
+      <ul>
+        <li>Main window layout</li>
+        <li>Sidebar</li>
+        <li>Calendar view</li>
+        <li>Day detail view</li>
+        <li>Controller-driven UI refresh</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Suggested Writing Order</h2>
+      <ol>
+        <li>Architecture</li>
+        <li>Components</li>
+        <li>Data Flow</li>
+        <li>Naming Convention</li>
+        <li>Refactor Plan</li>
+      </ol>
+      <p class="muted">
+        This order helps move from global structure to local cleanup rules.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

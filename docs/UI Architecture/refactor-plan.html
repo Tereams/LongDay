@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refactor Plan - Longday Plan UI Docs</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f8fa; color: #1f2937; }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
+    .card { background: white; border: 1px solid #d1d5db; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <a href="index.html">&larr; Back to Home</a>
+      <h1>Refactor Plan</h1>
+      <p>Track current problems, refactor principles, and the next concrete cleanup steps.</p>
+    </div>
+
+    <div class="card">
+      <h2>1. Current Problems</h2>
+      <ul>
+        <li>[Responsibility overlap]</li>
+        <li>[Naming inconsistency]</li>
+        <li>[Scattered refresh logic]</li>
+        <li>[Unclear boundary between controller and views]</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>2. Refactor Principles</h2>
+      <ul>
+        <li>[Views should focus on rendering]</li>
+        <li>[MainWindow should coordinate, not own business logic]</li>
+        <li>[Controller should remain the main data source]</li>
+        <li>[Every public method should have a clear naming pattern]</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Next Steps</h2>
+      <ol>
+        <li>[Unify method names]</li>
+        <li>[Separate layout construction from data refresh]</li>
+        <li>[Document responsibilities for each component]</li>
+        <li>[Reduce logic inside views]</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>4. Deferred Ideas</h2>
+      <ul>
+        <li>[Possible ViewModel layer]</li>
+        <li>[Stronger event system]</li>
+        <li>[Shared style/theme module]</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
