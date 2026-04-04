@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Architecture - Longday Plan UI Docs</title>
-  <style>
+  <!-- <style>
     body { font-family: Arial, sans-serif; margin: 0; background: #f7f8fa; color: #1f2937; }
     .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
     .card { background: white; border: 1px solid #d1d5db; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
@@ -12,7 +12,7 @@
     a:hover { text-decoration: underline; }
     pre { background: #f3f4f6; padding: 16px; border-radius: 10px; overflow-x: auto; }
     .muted { color: #6b7280; }
-  </style>
+  </style> -->
 </head>
 <body>
   <div class="container">
@@ -23,8 +23,30 @@
     </div>
 
     <div class="card">
-      <h2>1. Purpose</h2>
-      <p>[Write what this UI is for, and what the current architecture is trying to support.]</p>
+      <h2>1. Windows and Views</h2>
+      <p>
+        The GUI is structured into two main layers: <strong>Windows</strong> and <strong>Views</strong>.
+      </p>
+
+      <p>
+        <strong>Windows</strong> are the top-level containers that appear as visible regions on the screen. 
+        They define the layout and act as holders for different parts of the interface.
+      </p>
+
+      <p>
+        <strong>Views</strong> define how content is organized and displayed within a window. 
+        They are responsible for rendering UI elements and handling presentation logic.
+      </p>
+
+      <p>
+        In this design, windows contain views, and views determine how the interface is structured inside each window.
+      </p>
+
+      <p>
+        A useful analogy is:
+        <br>
+        Windows are like rooms, while views are the internal structures and arrangements within those rooms.
+      </p>
     </div>
 
     <div class="card">
