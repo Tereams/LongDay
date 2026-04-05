@@ -47,6 +47,36 @@
         <br>
         Windows are like rooms, while views are the internal structures and arrangements within those rooms.
       </p>
+      <h3>Current Windows</h3>
+      <ul>
+        <li>Main Window</li>
+        <li>Task Detail Window</li>
+      </ul>
+
+      <h3>View Structure (Main Window)</h3>
+
+      <p>
+        The <strong>Main Window</strong> contains a top-level view called <strong>MainView</strong>, 
+        which is responsible for organizing the primary layout of the application.
+      </p>
+
+      <pre>
+    MainView
+    ├── PlanInputView
+    ├── CalendarView
+    └── DayDetailView
+      </pre>
+
+      <p>
+        Each sub-view is responsible for a specific part of the interface:
+      </p>
+
+      <ul>
+        <li><strong>PlanInputView</strong>: displays tasks and constraints</li>
+        <li><strong>CalendarView</strong>: displays the monthly calendar</li>
+        <li><strong>DayDetailView</strong>: shows detailed information for the selected day</li>
+      </ul>
+
     </div>
 
     <div class="card">
