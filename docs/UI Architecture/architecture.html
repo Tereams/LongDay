@@ -76,7 +76,24 @@
         <li><strong>CalendarView</strong>: displays the monthly calendar</li>
         <li><strong>DayDetailView</strong>: shows detailed information for the selected day</li>
       </ul>
-
+      <h3>Architecture layers:</h3>
+      <p>Controller ⇄ Windows ⇄ Views</p>
+        <ul>
+          <li>Controllers manage application state and business logic.</li>
+          <li>Windows coordinate multiple views and communicate with the controller.</li>
+          <li>Views are responsible for presentation and local user interaction only.</li>
+        </ul>
+        <h4>Window:</h4>
+          <ul>
+            <li>may access controller</li>
+            <li>coordinates views</li>
+          </ul>
+        <h4>View:</h4>
+          <ul>
+            <li>may emit events upward</li>
+            <li>may render data downward</li>
+            <li>must not access controller</li>
+          </ul>
     </div>
 
     <div class="card">
