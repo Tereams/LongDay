@@ -1,5 +1,5 @@
-from gui.main_window import App
+from gui.main_window import MainWindow
 
 if __name__ == "__main__":
-    app = App()
+    app = MainWindow()
     app.run()
