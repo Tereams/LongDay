@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main View</title>
+</head>
+
+<body>
+
+<a href="index.html">�� Back</a>
+
+<div class="card">
+  <h2>Main View</h2>
+
+  <p>
+    The Main View is a composed view that contains multiple sub-views.
+  </p>
+
+  <p>
+    It does NOT communicate with the Controller directly.
+  </p>
+
+  <p>
+    Instead, it acts as a bridge between:
+  </p>
+
+  <ul>
+    <li>Sub-views (CalendarView, InputView, DayDetailView)</li>
+    <li>Main Window (which owns the Controller)</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Structure</h2>
+
+  <pre>
+MainView
+������ InputView
+������ CalendarView
+������ DayDetailView
+  </pre>
+
+</div>
+
+<div class="card">
+  <h2>Responsibilities</h2>
+
+  <ul>
+    <li>Build layout (UI structure)</li>
+    <li>Bind events from sub-views</li>
+    <li>Forward user interactions upward</li>
+    <li>Render data into sub-views</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Data Flow</h2>
+
+  <p><strong>MainView does NOT talk to Controller.</strong></p>
+
+  <p><strong>Downward (Rendering):</strong></p>
+
+  <pre>
+MainWindow �� MainView.render_xxx() �� Sub Views
+  </pre>
+
+  <p><strong>Upward (Events):</strong></p>
+
+  <pre>
+Sub Views �� MainView.on_xxx() �� MainWindow
+  </pre>
+
+</div>
+
+<div class="card">
+  <h2>Example: Day Selection</h2>
+
+  <pre>
+CalendarView detects click
+�� MainView.on_day_selected(day)
+
+�� MainView forwards event:
+   on_day_selected_callback(day)
+
+�� MainWindow handles it
+  </pre>
+
+</div>
+
+<div class="card">
+  <h2>Example: Rendering Calendar</h2>
+
+  <pre>
+MainWindow gets data from Controller
+
+�� MainView.render_calendar(year, month, workload)
+
+�� CalendarView.refresh(...)
+�� CalendarView.set_workload(...)
+  </pre>
+
+</div>
+
+<div class="card">
+  <h2>Key Rule</h2>
+
+  <pre>
+MainView MUST NOT:
+- access controller
+- manage application state
+
+MainView MUST:
+- render data
+- forward events
+  </pre>
+
+</div>
+
+</body>
+</html>

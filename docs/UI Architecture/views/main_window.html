@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main Window</title>
+</head>
+
+<body>
+
+<a href="index.html">← Back</a>
+
+<div class="card">
+  <h2>Main Window</h2>
+
+  <p>
+    The Main Window is the central coordinator between the Controller and all Views.
+  </p>
+
+  <p>
+    It is responsible for:
+  </p>
+
+  <ul>
+    <li>Requesting data from the Controller</li>
+    <li>Updating application state via the Controller</li>
+    <li>Coordinating multiple views</li>
+    <li>Distributing data to views</li>
+    <li>Handling user interactions from views</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Responsibilities</h2>
+
+  <ul>
+    <li><strong>Data Access</strong>: communicates with Controller</li>
+    <li><strong>State Update</strong>: triggers changes in Controller</li>
+    <li><strong>View Coordination</strong>: manages MainView and sub-views</li>
+    <li><strong>Window Management</strong>: opens additional windows (e.g. TaskDetailWindow)</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Data Flow (Core)</h2>
+
+  <p><strong>Data always flows downward:</strong></p>
+
+  <pre>
+Controller → MainWindow → MainView → Sub Views
+  </pre>
+
+  <p><strong>Events always flow upward:</strong></p>
+
+  <pre>
+User → View → MainView → MainWindow → Controller
+  </pre>
+
+</div>
+
+<div class="card">
+  <h2>Example: Change Month</h2>
+
+  <pre>
+User clicks "Next"
+→ CalendarView.on_next()
+→ MainView.on_next_month()
+→ MainWindow.on_next_month()
+
+→ Controller.next_month()
+
+→ MainWindow.render_calendar()
+→ MainView.render_calendar()
+→ CalendarView updates UI
+  </pre>
+</div>
+
+<div class="card">
+  <h2>Example: Select Day</h2>
+
+  <pre>
+User clicks a day
+→ CalendarView.on_day_clicked(day)
+→ MainView.on_day_selected(day)
+→ MainWindow.on_day_selected(day)
+
+→ Controller.get_day_schedule(day)
+
+→ MainWindow.render_day_detail()
+→ MainView.render_day_detail()
+→ DayDetailView updates UI
+  </pre>
+</div>
+
+</body>
+</html>
