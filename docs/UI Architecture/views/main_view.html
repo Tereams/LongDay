@@ -6,7 +6,7 @@
 
 <body>
 
-<a href="index.html">�� Back</a>
+<a href="index.html">← Back</a>
 
 <div class="card">
   <h2>Main View</h2>
@@ -34,9 +34,9 @@
 
   <pre>
 MainView
-������ InputView
-������ CalendarView
-������ DayDetailView
+├── PlanInputView
+├── CalendarView
+└── DayDetailView
   </pre>
 
 </div>
@@ -60,13 +60,13 @@ MainView
   <p><strong>Downward (Rendering):</strong></p>
 
   <pre>
-MainWindow �� MainView.render_xxx() �� Sub Views
+MainWindow → MainView.render_xxx() → Sub Views
   </pre>
 
   <p><strong>Upward (Events):</strong></p>
 
   <pre>
-Sub Views �� MainView.on_xxx() �� MainWindow
+Sub Views → MainView.on_xxx() → MainWindow
   </pre>
 
 </div>
@@ -76,12 +76,12 @@ Sub Views �� MainView.on_xxx() �� MainWindow
 
   <pre>
 CalendarView detects click
-�� MainView.on_day_selected(day)
+→ MainView.on_day_selected(day)
 
-�� MainView forwards event:
+→ MainView forwards event:
    on_day_selected_callback(day)
 
-�� MainWindow handles it
+→ MainWindow handles it
   </pre>
 
 </div>
@@ -92,10 +92,10 @@ CalendarView detects click
   <pre>
 MainWindow gets data from Controller
 
-�� MainView.render_calendar(year, month, workload)
+→ MainView.render_calendar(year, month, workload)
 
-�� CalendarView.refresh(...)
-�� CalendarView.set_workload(...)
+→ CalendarView.refresh(...)
+→ CalendarView.set_workload(...)
   </pre>
 
 </div>
