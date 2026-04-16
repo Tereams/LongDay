@@ -102,7 +102,7 @@ class MainView(tk.Frame):
         self.calendar.set_workload(workload)
 
     def render_day_detail(self, day, tasks):
-        self.detail.show_day(day, tasks)
+        self.detail.render_day(day, tasks)
 
     # =========================
     # Interaction handlers
